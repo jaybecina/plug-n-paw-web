@@ -64,10 +64,10 @@ export function SearchBar({
   return (
     <div className="space-y-2">
       <form
-        className="grid gap-2 rounded-xl border border-border/80 bg-card/95 p-2 shadow-lg backdrop-blur md:grid-cols-[minmax(18rem,1fr)_auto_auto]"
+        className="flex flex-col gap-2 rounded-xl border border-border/80 bg-card/95 p-2 shadow-lg backdrop-blur sm:flex-row sm:items-end"
         onSubmit={handleSubmit}
       >
-        <div className="min-w-0">
+        <div className="min-w-0 flex-1">
           <label
             htmlFor="find-vet-query"
             className="mb-1 block text-xs font-medium text-muted-foreground"
@@ -83,20 +83,21 @@ export function SearchBar({
             maxLength={100}
           />
         </div>
-        <Button type="submit" size="lg" disabled={isLoading || !query.trim()}>
-          <Search aria-hidden="true" />
-          Search
-        </Button>
-        <Button
-          type="button"
-          variant="secondary"
-          size="lg"
-          disabled={isLoading}
-          onClick={handleUseLocation}
-        >
-          <LocateFixed aria-hidden="true" />
-          Use my location
-        </Button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            disabled={isLoading}
+            onClick={handleUseLocation}
+            className="inline-flex h-10 items-center gap-1.5 whitespace-nowrap rounded-md px-3 text-sm font-medium text-secondary transition-colors hover:bg-secondary/10 disabled:pointer-events-none disabled:opacity-50 dark:text-secondary-foreground"
+          >
+            <LocateFixed className="size-4" aria-hidden="true" />
+            Use my location
+          </button>
+          <Button type="submit" size="lg" disabled={isLoading || !query.trim()}>
+            <Search aria-hidden="true" />
+            Search
+          </Button>
+        </div>
       </form>
       {locationMessage ? (
         <p className="rounded-lg border border-border/80 bg-card/95 px-3 py-2 text-sm text-muted-foreground shadow-sm">

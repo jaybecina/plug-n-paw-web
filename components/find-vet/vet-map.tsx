@@ -52,11 +52,11 @@ export default function VetMap({
         selectedId={selectedId}
         resizeSignal={resizeSignal}
       />
-      {data?.results.map((vet) => (
+      {data?.results.map((vet, index) => (
         <Marker
           key={vet.id}
           position={[vet.lat, vet.lon]}
-          icon={createMarkerIcon(selectedId === vet.id)}
+          icon={createMarkerIcon(selectedId === vet.id, index + 1)}
           eventHandlers={{
             click: () => onSelect(vet.id),
           }}
@@ -141,12 +141,12 @@ function isPopupMarker(
   );
 }
 
-function createMarkerIcon(isSelected: boolean) {
+function createMarkerIcon(isSelected: boolean, rank: number) {
   return divIcon({
     className: "",
-    html: `<span class="vet-marker${isSelected ? " vet-marker-selected" : ""}"></span>`,
+    html: `<span class="vet-marker${isSelected ? " vet-marker-selected" : ""}"><span>${rank}</span></span>`,
     iconSize: [30, 30],
-    iconAnchor: [15, 15],
-    popupAnchor: [0, -16],
+    iconAnchor: [15, 26],
+    popupAnchor: [0, -24],
   });
 }
