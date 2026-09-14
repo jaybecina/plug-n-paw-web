@@ -50,12 +50,12 @@ export function VetResults({
   return (
     <section className="flex min-h-0 flex-1 flex-col" aria-label="Search results">
       <div className="border-b border-border px-4 py-3">
-        <h2 className="text-base font-semibold text-foreground">
+        <h2 className="font-heading text-lg font-semibold text-foreground">
           Veterinary clinics
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
       </div>
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-3">
         <ResultContent
           status={status}
           data={data}
@@ -132,11 +132,12 @@ function ResultContent({
   }
 
   return (
-    <div className="space-y-3">
-      {data?.results.map((vet) => (
+    <div className="divide-y divide-border/70">
+      {data?.results.map((vet, index) => (
         <VetCard
           key={vet.id}
           vet={vet}
+          rank={index + 1}
           isSelected={selectedId === vet.id}
           onSelect={onSelect}
         />

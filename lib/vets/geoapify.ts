@@ -9,6 +9,7 @@ type GeoapifyFeature = {
       phone?: string;
     };
     phone?: string;
+    opening_hours?: string;
   };
   geometry?: {
     type: "Point";

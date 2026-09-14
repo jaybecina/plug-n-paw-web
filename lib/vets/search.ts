@@ -110,6 +110,7 @@ function mapVetResults(
       }
 
       const phone = properties.contact?.phone ?? properties.phone;
+      const hours = properties.opening_hours;
 
       return {
         id: properties.place_id ?? `${lat}:${lon}:${index}`,
@@ -118,6 +119,7 @@ function mapVetResults(
         lat,
         lon,
         ...(phone ? { phone } : {}),
+        ...(hours ? { hours } : {}),
         distanceKm: roundDistanceKm(haversineKm(center, { lat, lon })),
       };
     })

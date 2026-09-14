@@ -1,24 +1,18 @@
 "use client";
 
 import { KeyboardEvent } from "react";
-import { MapPin, Navigation, Phone } from "lucide-react";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Clock, Phone } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { VetResult } from "@/lib/vets/types";
 
 type VetCardProps = {
   vet: VetResult;
+  rank: number;
   isSelected: boolean;
   onSelect: (id: string) => void;
 };
 
-export function VetCard({ vet, isSelected, onSelect }: VetCardProps) {
+export function VetCard({ vet, rank, isSelected, onSelect }: VetCardProps) {
   function handleKeyDown(event: KeyboardEvent<HTMLDivElement>) {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -27,51 +21,70 @@ export function VetCard({ vet, isSelected, onSelect }: VetCardProps) {
   }
 
   return (
-    <Card
+    <div
       id={`vet-card-${vet.id}`}
       role="button"
       tabIndex={0}
       aria-current={isSelected ? "true" : undefined}
-      size="sm"
       className={cn(
-        "cursor-pointer rounded-lg border border-transparent bg-card/95 shadow-sm ring-1 ring-border transition hover:border-primary/30 hover:ring-primary/30 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
-        isSelected &&
-          "border-primary/50 bg-primary/5 ring-primary/40 dark:bg-primary/10"
+        "group flex gap-3 border-l-[3px] py-3 pl-3 pr-1 transition-colors cursor-pointer",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50 focus-visible:rounded-sm",
+        isSelected
+          ? "border-l-primary bg-primary/5"
+          : "border-l-transparent hover:border-l-secondary/40"
       )}
       onClick={() => onSelect(vet.id)}
       onKeyDown={handleKeyDown}
     >
-      <CardHeader className="gap-2">
-        <CardTitle className="pr-2 text-sm leading-snug">{vet.name}</CardTitle>
-        {vet.distanceKm !== undefined ? (
-          <CardAction className="rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-            {vet.distanceKm.toFixed(1)} km
-          </CardAction>
-        ) : null}
-      </CardHeader>
-      <CardContent className="space-y-3 text-sm text-muted-foreground">
-        <p className="flex gap-2 leading-relaxed">
-          <MapPin className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
-          <span>{vet.address}</span>
-        </p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          {vet.phone ? (
-            <a
-              className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-foreground transition hover:border-primary/40 hover:text-primary"
-              href={`tel:${vet.phone}`}
-              onClick={(event) => event.stopPropagation()}
-            >
-              <Phone className="size-3.5" aria-hidden />
-              {vet.phone}
-            </a>
+      <span
+        className={cn(
+          "mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-heading text-xs font-semibold",
+          isSelected
+            ? "bg-primary text-primary-foreground"
+            : "bg-secondary/10 text-secondary group-hover:bg-secondary/20 dark:text-secondary-foreground"
+        )}
+      >
+        {rank}
+      </span>
+
+      <div className="min-w-0 flex-1 space-y-1">
+        <div className="flex items-baseline justify-between gap-3">
+          <h3 className="truncate text-sm font-medium leading-snug text-foreground">
+            {vet.name}
+          </h3>
+          {vet.distanceKm !== undefined ? (
+            <span className="shrink-0 text-xs tabular-nums text-muted-foreground">
+              {vet.distanceKm.toFixed(1)} km
+            </span>
           ) : null}
-          <span className="inline-flex items-center gap-1.5 rounded-md border border-border px-2 py-1 text-foreground">
-            <Navigation className="size-3.5" aria-hidden />
-            View on map
-          </span>
         </div>
-      </CardContent>
-    </Card>
+
+        <p className="text-xs leading-relaxed text-muted-foreground">
+          {vet.address}
+        </p>
+
+        {vet.phone || vet.hours ? (
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 pt-0.5 text-xs text-muted-foreground">
+            {vet.phone ? (
+              <a
+                className="inline-flex items-center gap-1 hover:text-primary"
+                href={`tel:${vet.phone}`}
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Phone className="size-3" aria-hidden />
+                {vet.phone}
+              </a>
+            ) : null}
+            {vet.hours ? (
+              <span className="inline-flex items-center gap-1">
+                <Clock className="size-3" aria-hidden />
+                {vet.hours}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    </div>
   );
 }
 

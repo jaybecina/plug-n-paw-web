@@ -7,6 +7,8 @@ export type VetResult = {
   phone?: string;
   distanceKm?: number;
   openNow?: boolean;
+  /** Raw opening-hours string as provided by the source (e.g. OSM), shown as-is — not parsed or evaluated. */
+  hours?: string;
 };
 
 export type SearchResponse = {
