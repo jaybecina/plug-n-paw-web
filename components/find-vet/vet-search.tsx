@@ -58,7 +58,7 @@ export function VetSearch() {
   }
 
   return (
-    <main className="relative min-h-dvh overflow-hidden bg-background text-foreground">
+    <div className="relative h-[calc(100dvh-4rem)] overflow-hidden bg-background text-foreground">
       <div className="absolute inset-0">
         <VetMap
           data={data}
@@ -134,7 +134,7 @@ export function VetSearch() {
       <p className="sr-only" aria-live="polite">
         {liveMessage}
       </p>
-    </main>
+    </div>
   );
 }
 

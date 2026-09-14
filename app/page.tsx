@@ -4,7 +4,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 export default function Home() {
   return (
-    <main className="flex min-h-dvh items-center bg-background px-6 py-16 text-foreground sm:px-10 lg:px-16">
+    <div className="flex min-h-[calc(100dvh-4rem)] items-center bg-background px-6 py-16 text-foreground sm:px-10 lg:px-16">
       <div className="mx-auto grid w-full max-w-5xl items-center gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
         <section className="max-w-md">
           <h1 className="font-heading text-4xl font-semibold leading-tight text-balance sm:text-5xl">
@@ -65,7 +65,7 @@ export default function Home() {
           </div>
         </section>
       </div>
-    </main>
+    </div>
   );
 }
 

@@ -153,6 +153,28 @@
   z-index: 1000;
 }
 
+.brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px 999px 999px 4px;
+  transform: rotate(-45deg);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 4px 10px oklch(0 0 0 / 16%);
+  transition: transform 0.2s ease;
+}
+
+.brand-mark svg {
+  transform: rotate(45deg);
+}
+
+.group\/logo:hover .brand-mark {
+  transform: rotate(-45deg) scale(1.06);
+}
+
 .vet-marker {
   display: flex;
   align-items: center;
