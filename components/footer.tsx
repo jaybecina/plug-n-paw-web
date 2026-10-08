@@ -7,6 +7,8 @@ const siteLinks = [
   { href: "/find-vet", label: "Find a vet" },
 ];
 
+const KOFI_URL = "https://ko-fi.com/jaybecina";
+
 export function Footer() {
   const year = new Date().getFullYear();
 
@@ -62,6 +64,24 @@ export function Footer() {
           <p className="text-xs text-secondary-foreground/60">
             &copy; {year} Plug N Paw. All rights reserved.
           </p>
+          <a
+            href={KOFI_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-1.5 rounded-sm text-xs text-secondary-foreground/70 transition-colors hover:text-secondary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground"
+          >
+            Help me buy a coffee
+            <span
+              aria-hidden="true"
+              className="inline-block transition-transform group-hover:translate-x-0.5 motion-reduce:transition-none"
+            >
+              👉
+            </span>
+            <span className="font-medium text-secondary-foreground underline decoration-secondary-foreground/40 underline-offset-4 group-hover:decoration-secondary-foreground">
+              ko-fi.com/jaybecina
+            </span>
+            <span className="sr-only">(opens in a new tab)</span>
+          </a>
         </div>
       </div>
     </footer>
