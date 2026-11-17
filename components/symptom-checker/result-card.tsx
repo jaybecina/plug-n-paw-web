@@ -48,7 +48,8 @@ export function ResultCard({ result }: { result: TriageResult }) {
           className={cn(
             buttonVariants({ size: "lg" }),
             "h-12 rounded-full px-6 text-base",
-            emergency && "bg-sev-emergency-fg text-sev-emergency hover:bg-sev-emergency-fg/90"
+            emergency &&
+              "bg-sev-emergency-fg text-sev-emergency hover:bg-sev-emergency-fg/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sev-emergency-fg"
           )}
         >
           {emergency ? "Find an emergency vet near me" : "Find a vet near me"}
@@ -59,7 +60,7 @@ export function ResultCard({ result }: { result: TriageResult }) {
         <ul className="mt-6 space-y-2 border-t border-sev-emergency-fg/30 pt-5 text-sm">
           {siteConfig.hotlines.map((h) => (
             <li key={h.tel}>
-              <a href={h.tel} className="inline-flex items-center gap-2 underline underline-offset-4">
+              <a href={h.tel} className="inline-flex items-center gap-2 rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sev-emergency-fg">
                 <Phone className="size-4" aria-hidden="true" />
                 {h.name}: {h.phone}
               </a>

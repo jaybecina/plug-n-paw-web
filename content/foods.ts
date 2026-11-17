@@ -32,7 +32,7 @@ export const foods: Food[] = [
     cat: "caution",
     popular: true,
     summary:
-      "Grapes and raisins can cause sudden kidney failure in dogs. The toxic substance is not known, and even small amounts have caused harm.",
+      "Grapes and raisins can cause sudden kidney failure in dogs. The exact toxic substance is not fully confirmed, and even small amounts have caused harm.",
     details: [
       "There is no safe amount to rely on. Some dogs react to a few grapes, others do not, and you cannot tell in advance.",
       "Cats are less studied, so the safest choice is to keep grapes away from them too.",
@@ -256,7 +256,7 @@ export const foods: Food[] = [
   },
   {
     slug: "peanut-butter",
-    name: "Peanut butter",
+    name: "Peanut butter (xylitol-free)",
     category: "snack",
     dog: "safe",
     cat: "caution",

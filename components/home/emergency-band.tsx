@@ -5,8 +5,8 @@ import { siteConfig } from "@/lib/site";
 
 const signs = [
   "Trouble breathing, or gums that are pale, blue or grey",
-  "Collapse, seizures, or cannot stand",
-  "Suspected poison or toxic food",
+  "Collapse, a long or repeated seizure, or cannot stand",
+  "Suspected poison: call a vet or a poison hotline now",
   "A hard, swollen belly, or retching with nothing coming up",
   "Hit by a car, or heavy bleeding",
 ];

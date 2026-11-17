@@ -17,7 +17,7 @@ export const homeFaq = [
   },
   {
     q: "How does the symptom checker decide?",
-    a: "It uses a fixed set of rules: your pet, the main symptom, warning signs, and how long it has lasted. Warning signs always lead to an emergency result. The rules are cautious and have not been reviewed by a veterinarian.",
+    a: "It uses a fixed set of rules: your pet, the main symptom, warning signs, and how long it has lasted. Warning signs always lead to an emergency result, and trouble breathing is always an emergency. The rules are cautious and have not been reviewed by a veterinarian.",
   },
   {
     q: "Do you store my location or my pet's details?",

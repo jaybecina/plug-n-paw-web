@@ -12,7 +12,7 @@ export const whenToSeeAVet: Guide = {
   body: [
     { type: "p", text: "Pets cannot tell you what is wrong, so it helps to know which signs matter most. When you are not sure, call your vet. They would rather hear from you early." },
     { type: "h2", id: "go-now", text: "Go now" },
-    { type: "ul", items: ["Trouble breathing, blue or pale gums", "Collapse, seizures, or cannot stand", "Suspected poison or something toxic eaten", "Hit by a car or a major fall", "A hard, swollen belly with retching", "A male cat straining to pee with little or nothing coming out"] },
+    { type: "ul", items: ["Trouble breathing, blue or pale gums", "Collapse, a seizure over 5 minutes or repeated seizures, or cannot stand", "Suspected poison or something toxic eaten", "Hit by a car or a major fall", "A hard, swollen belly with retching", "A male cat straining to pee with little or nothing coming out"] },
     { type: "h2", id: "see-a-vet-soon", text: "See a vet soon" },
     { type: "ul", items: ["Vomiting or diarrhea for more than a day", "Not eating for more than a day (cats) or two (dogs)", "Limping that does not improve in a day or two", "A cut that is deep, or an eye that is red or held shut"] },
     { type: "h2", id: "routine-care", text: "Routine care" },

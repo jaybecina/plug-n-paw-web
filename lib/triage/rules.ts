@@ -77,12 +77,19 @@ export function assessSymptoms(input: TriageInput): TriageResult {
   }
 
   if (reasons.length === 0) {
-    reasons.push(`${symptom.label} with no warning signs reported`);
+    reasons.push(
+      symptom.id === "breathing-trouble"
+        ? "Trouble breathing is always treated as an emergency"
+        : `${symptom.label} with no warning signs reported`
+    );
   }
 
   return {
     severity,
-    advice: ADVICE[severity],
+    advice:
+      symptom.id === "ate-toxic" && severity === "urgent"
+        ? "Call your vet or a pet poison hotline right now, even if your pet seems fine. Do not make your pet vomit unless they tell you to."
+        : ADVICE[severity],
     reasons,
     suggestedQuery: severity === "emergency" ? "emergency vet" : "veterinary clinic",
     disclaimer: TRIAGE_DISCLAIMER,

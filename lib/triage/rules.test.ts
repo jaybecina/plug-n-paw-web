@@ -59,11 +59,18 @@ describe("assessSymptoms", () => {
     ).toBe("emergency");
   });
 
-  it("rates breathing trouble as at least urgent", () => {
-    expect(
-      assessSymptoms({ ...base, species: "dog", symptom: "breathing-trouble" })
-        .severity
-    ).toBe("urgent");
+  it("treats any breathing trouble as an emergency", () => {
+    for (const s of species)
+      expect(
+        assessSymptoms({ ...base, species: s, symptom: "breathing-trouble" })
+          .severity
+      ).toBe("emergency");
+  });
+
+  it("tells owners of a pet that ate something toxic to call a vet or hotline now", () => {
+    const r = assessSymptoms({ ...base, species: "dog", symptom: "ate-toxic" });
+    expect(r.severity).toBe("urgent");
+    expect(r.advice).toMatch(/poison/i);
   });
 
   it("rates a cat that has not eaten for over a day as urgent", () => {
@@ -90,9 +97,9 @@ describe("assessSymptoms", () => {
         ).not.toBe("routine");
   });
 
-  it("never returns emergency without a red flag", () => {
+  it("never returns emergency without a red flag, except breathing trouble", () => {
     for (const s of species)
-      for (const sym of SYMPTOMS)
+      for (const sym of SYMPTOMS.filter((x) => x.id !== "breathing-trouble"))
         for (const d of ["lt24h", "1to3d", "gt3d"] as const)
           expect(
             assessSymptoms({ species: s, symptom: sym.id, flags: [], duration: d })

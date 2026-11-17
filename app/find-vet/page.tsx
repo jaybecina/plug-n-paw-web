@@ -5,6 +5,7 @@ import { VetSearch } from "@/components/find-vet/vet-search";
 
 export const metadata: Metadata = {
   title: "Find a vet near you",
+  alternates: { canonical: "/find-vet" },
   description:
     "Search nearby veterinary clinics by address, city, clinic name, or your current location.",
 };

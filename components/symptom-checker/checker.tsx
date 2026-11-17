@@ -118,7 +118,7 @@ export function SymptomChecker() {
         {headings[step]}
       </h2>
 
-      <div className="mt-6" aria-live="polite">
+      <div className="mt-6">
         {step === "species" && (
           <div className="grid max-w-md grid-cols-2 gap-3">
             {(["dog", "cat"] as const).map((s) => (
@@ -215,7 +215,11 @@ export function SymptomChecker() {
           </div>
         )}
 
-        {step === "result" && result && <ResultCard result={result} />}
+        {step === "result" && result && (
+          <div aria-live="polite">
+            <ResultCard result={result} />
+          </div>
+        )}
       </div>
 
       <div className="mt-8 flex flex-wrap gap-3">

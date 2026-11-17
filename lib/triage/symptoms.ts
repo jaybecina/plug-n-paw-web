@@ -135,7 +135,7 @@ export const SYMPTOMS: Symptom[] = [
   {
     id: "breathing-trouble",
     label: "Trouble breathing",
-    base: { dog: "urgent", cat: "urgent" },
+    base: { dog: "emergency", cat: "emergency" },
     redFlags: [
       {
         id: "open-mouth-breathing",

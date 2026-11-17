@@ -11,7 +11,7 @@ export const howToGiveAPill: Guide = {
   updated: "2026-08-08",
   body: [
     { type: "p", text: "Always check with your vet or pharmacist first. Some pills must be given with food, and some must not be crushed." },
-    { type: "h2", id: "easy-way:-hide-it", text: "Easy way: hide it" },
+    { type: "h2", id: "easy-way-hide-it", text: "Easy way: hide it" },
     { type: "ul", items: ["Use a pill pocket or a small bit of food your vet says is safe", "Do not use peanut butter that contains xylitol", "Give a plain treat first, then the pill treat, then another plain treat"] },
     { type: "h2", id: "hands-on-way", text: "Hands-on way" },
     { type: "ul", items: ["Hold the head gently from above and tilt it back", "Open the mouth with your other hand", "Place the pill far back on the tongue", "Close the mouth, stroke the throat, and wait for a swallow", "Follow with a small sip of water or a lick of wet food"] },

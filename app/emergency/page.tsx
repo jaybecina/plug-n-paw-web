@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 };
 
 const signs = [
-  "Trouble breathing, or open-mouth breathing in a cat",
+  "Any trouble breathing, or open-mouth breathing in a cat",
   "Gums that are pale, white, blue or grey",
   "Collapse, or cannot stand up",
-  "A seizure longer than 5 minutes, or more than one in a day",
-  "Suspected poison, or a toxic food eaten",
+  "A seizure longer than 5 minutes, or more than one in a day (after any single short seizure, call a vet today)",
+  "Suspected poison or toxic food: call a vet or a poison hotline right now",
   "A hard, swollen belly, or retching with nothing coming up",
   "Straining to pee with little or nothing coming out (especially a male cat)",
   "Hit by a car, a bad fall, or heavy bleeding",
@@ -60,7 +60,7 @@ export default function EmergencyPage() {
             className={buttonVariants({
               size: "lg",
               className:
-                "mt-8 h-12 rounded-full bg-sev-emergency-fg px-6 text-base text-sev-emergency hover:bg-sev-emergency-fg/90",
+                "mt-8 h-12 rounded-full bg-sev-emergency-fg px-6 text-base text-sev-emergency hover:bg-sev-emergency-fg/90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sev-emergency-fg",
             })}
           >
             Find an emergency vet near me

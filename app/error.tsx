@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { TriangleAlert } from "lucide-react";
 
-export default function ErrorPage({ reset }: { error: Error; reset: () => void }) {
+export default function ErrorPage({ retry }: { error: Error; retry: () => void }) {
   return (
     <div className="container-page flex min-h-[60dvh] flex-col items-center justify-center py-16 text-center">
       <span className="flex size-16 items-center justify-center rounded-full bg-sev-urgent text-sev-urgent-fg">
@@ -19,7 +19,7 @@ export default function ErrorPage({ reset }: { error: Error; reset: () => void }
       <div className="mt-8 flex flex-wrap justify-center gap-3">
         <button
           type="button"
-          onClick={reset}
+          onClick={() => retry()}
           className="inline-flex h-11 items-center rounded-full bg-primary px-5 text-sm font-semibold text-primary-foreground hover:bg-primary/85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
         >
           Try again
