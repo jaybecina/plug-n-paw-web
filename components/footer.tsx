@@ -107,7 +107,7 @@ export function Footer() {
               👉
             </span>
             <span className="font-medium text-secondary-foreground underline decoration-secondary-foreground/40 underline-offset-4 group-hover:decoration-secondary-foreground">
-              ko-fi.com/jaybecina
+              ko-fi.com/plugnpaw
             </span>
             <span className="sr-only">(opens in a new tab)</span>
           </a>

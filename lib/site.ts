@@ -11,7 +11,7 @@ export const siteConfig = {
   description:
     "Free pet-health tools: find a vet near you, check how urgent a symptom is, see which foods are safe for dogs and cats, and read plain-language care guides.",
   email: "plugnpaw@gmail.com",
-  kofiUrl: "https://ko-fi.com/jaybecina",
+  kofiUrl: "https://ko-fi.com/plugnpaw",
   disclaimer:
     "General information only — not a substitute for advice from a veterinarian.",
   nav: [
