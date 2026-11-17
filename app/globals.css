@@ -236,6 +236,7 @@
 }
 
 /* Layout + motion utilities */
+@layer components {
 .container-page {
   margin-inline: auto;
   width: 100%;
@@ -247,6 +248,7 @@
 }
 @media (min-width: 1024px) {
   .container-page { padding-inline: 2rem; }
+}
 }
 
 .grain {
