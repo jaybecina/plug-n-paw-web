@@ -1,7 +1,8 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -13,6 +14,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { SearchBar } from "@/components/find-vet/search-bar";
 import { VetResults } from "@/components/find-vet/vet-results";
 import { useVetSearch } from "@/hooks/use-vet-search";
+import { parseFindVetParams } from "@/lib/vets/url-params";
 
 const VetMap = dynamic(() => import("@/components/find-vet/vet-map"), {
   ssr: false,
@@ -31,6 +33,21 @@ export function VetSearch() {
     retry,
     setLocationError,
   } = useVetSearch();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [initialParams] = useState(() => parseFindVetParams(searchParams));
+
+  const handleSearch = useCallback(
+    (query: string) => {
+      const trimmed = query.trim().slice(0, 100);
+      if (!trimmed) return;
+      router.replace(`/find-vet?q=${encodeURIComponent(trimmed)}`, {
+        scroll: false,
+      });
+      return searchByQuery(trimmed);
+    },
+    [router, searchByQuery]
+  );
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [snapPoint, setSnapPoint] = useState<number | string | null>(0.18);
   const [resizeSignal, setResizeSignal] = useState(0);
@@ -73,9 +90,11 @@ export function VetSearch() {
           <SearchBar
             isLoading={status === "loading"}
             locationError={errorCode}
-            onSearch={searchByQuery}
+            onSearch={handleSearch}
             onUseLocation={searchByLocation}
             onLocationError={setLocationError}
+            initialQuery={initialParams.q}
+            autoLocate={initialParams.locate}
           />
         </div>
       </div>

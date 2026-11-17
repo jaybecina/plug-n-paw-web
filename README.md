@@ -1,57 +1,64 @@
-# 🐾 Plug N Paw (Web)
+# Plug N Paw
 
-**Plug N Paw** is a fast, accessible, and user-friendly web application designed to help pet owners locate nearby veterinary clinics globally. Built with Next.js 16 App Router, React Leaflet, Tailwind CSS, and Geoapify.
+**Free pet-health tools for worried owners.** Find a vet near you, check how urgent a symptom is, look up whether a food is safe for dogs and cats, and read plain-language care guides. No sign-up.
 
----
+Built as a portfolio project to show product thinking and production-minded frontend engineering: statically generated content, a unit-tested rules engine, a map-backed search API, and SEO and accessibility done properly.
 
-## 🌟 Key Features
+## What's in it
 
-- **Dual Search Modes**: Search by free-text query (city, address, or clinic name) or pinpoint nearby clinics using browser **Geolocation** (`"Use my location"`).
-- **Synchronized Map & List**: Live bi-directional interaction between interactive map markers and dynamic card lists.
-- **Smart Name-Boost Re-ranking**: Upstream places results are client-reranked to surface exact business name matches (e.g., _"Banfield Pet Hospital"_) ahead of closer, unrelated clinics.
-- **Server-Side Key Protection**: Geoapify API keys are consumed strictly server-side via Next.js Route Handlers.
-- **Adaptive Mobile & Desktop UI**:
-  - **Desktop (≥ md)**: Split view with a fixed-width scrollable list panel and full-height map.
-  - **Mobile (< md)**: Fullscreen interactive map with a draggable bottom sheet (`shadcn/ui` Drawer via `vaul`).
-- **Built-in Resilience**: Built-in timeout budgets (`AbortSignal.timeout`), structured server logging with unique `requestId` tracking, and edge-like response caching (15-minute revalidation).
+| Route | What it does |
+|---|---|
+| `/` | Landing page: search, tools, symptom teaser, food lookup, guides, emergency band, FAQ |
+| `/find-vet` | Map + list of clinics by city, address, clinic name or your location. Shareable URLs (`?q=`, `?locate=1`) |
+| `/symptom-checker` | Guided check: pet, symptom, warning signs, duration → routine / soon / urgent / emergency |
+| `/food-safety`, `/food-safety/[slug]` | 20 foods with verdicts for dogs and cats |
+| `/guides`, `/guides/[slug]` | 8 care guides with table of contents and Article structured data |
+| `/emergency` | Warning signs, first steps, US poison hotlines |
+| `/plus` | Honest "coming soon" membership teaser (no data collected) |
+| `/about` | Mission, data sources, stack, credits, disclaimer |
 
----
+## Engineering notes
 
-## 🏗 Architecture & Data Flow
+- **Static by default.** All content pages are prerendered (`generateStaticParams`, `dynamicParams = false`), so they serve from a CDN and absorb traffic spikes. Only `/api/vets/search` runs on demand.
+- **Content as typed code.** Foods and guides live in `content/` as TypeScript, checked at compile time and covered by integrity tests. No CMS, no runtime fetch.
+- **Rules engine is a pure function.** `lib/triage/rules.ts` (`assessSymptoms`) is unit-tested, including invariants: a warning sign always means emergency, nothing reaches emergency without one, nothing stays routine after 3 days. Its result shape matches a planned n8n/LLM workflow (`docs/superpowers/specs/2026-09-16-n8n-triage-automation-design.md`), so AI triage can be swapped in later.
+- **API key stays on the server.** The Geoapify key is only used in a Route Handler with timeouts, structured logs with request IDs, and 15-minute fetch caching.
+- **SEO.** Per-page metadata and canonical URLs, generated Open Graph images, `sitemap.xml`, `robots.txt`, web manifest, and JSON-LD (Organization, WebSite, FAQPage, Article, BreadcrumbList).
+- **Accessibility.** Skip link, visible focus, labelled controls, severity shown with icon + text (never colour alone), `aria-live` results, and `prefers-reduced-motion` respected.
+- **Security headers** set in `next.config.ts`.
+- **Self-hosted fonts** via `next/font/local` (Fredoka, Inter).
 
----
+## Scripts
 
-## 📖 Instructions for Users
+```bash
+yarn dev         # dev server
+yarn build       # production build
+yarn start       # run the production build
+yarn lint        # eslint
+yarn typecheck   # tsc --noEmit
+yarn test        # vitest (pure logic: triage, foods, guides, URL params)
+```
 
-1. **Accessing the Search Page**: Navigate to `/find-vet` in your web browser.
-2. **Finding Clinics via Text**:
-   - Type a city name, full address, or specific clinic name (e.g., _"Quezon City"_ or _"VCA Animal Hospital"_) into the search box.
-   - Press **Enter** or click **Search**.
-3. **Finding Clinics via Location**:
-   - Click **Use my location**.
-   - When prompted by your browser, grant location access. The app will center the map and fetch veterinary clinics within a 20 km radius of your location.
-4. **Interacting with Results**:
-   - Click any card in the list to highlight and center its corresponding map pin.
-   - Click any map pin to automatically scroll to and highlight its clinic card in the list.
-   - On mobile devices, drag the bottom sheet up or down to reveal or minimize the list of clinics.
+CI (`.github/workflows/ci.yml`) runs lint, typecheck, test and build on every push and pull request.
 
----
+## Setup
 
-## 🛠 Developer Quickstart & Setup Instructions (Yarn)
+1. Node 22.12+ and yarn.
+2. `yarn install`
+3. Copy `.env.example` to `.env.local` and set:
+   - `GEOAPIFY_API_KEY`: free key from [geoapify.com](https://www.geoapify.com/)
+   - `NEXT_PUBLIC_SITE_URL`: your public URL (used for canonical links, sitemap and Open Graph)
+4. `yarn dev`
 
-### Prerequisites
+## Disclaimers
 
-- **Node.js**: `v20.x` or higher
-- **Package Manager**: `yarn` (`v1` classic or `v4+` berry)
-- **Geoapify Account**: Free API key required from [geoapify.com](https://www.geoapify.com/) (No credit card needed).
+General information only, not veterinary advice. The symptom checker's rules are cautious but have **not** been reviewed by a veterinarian. Clinic data comes from OpenStreetMap via Geoapify and may be incomplete.
 
----
+## What I'd do next
 
-### Step-by-Step Installation
-
-1. **Clone the Repository & Install Dependencies**:
-   ```bash
-   git clone [https://github.com/your-username/plug-n-paw-web.git](https://github.com/your-username/plug-n-paw-web.git)
-   cd plug-n-paw-web
-   yarn install
-   ```
+- Replace the rules with the n8n + LLM triage workflow behind the same result type, keeping the rules as a safety floor.
+- Move content to a CMS if non-developers need to edit it.
+- Add a Content-Security-Policy (Leaflet tiles make this fiddly).
+- Add privacy-friendly analytics and Core Web Vitals reporting.
+- Add per-IP rate limiting to `/api/vets/search`.
+- Have a veterinarian review the triage rules and food content.

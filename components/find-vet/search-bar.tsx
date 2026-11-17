@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { LocateFixed, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,8 @@ type SearchBarProps = {
   onSearch: (query: string) => void;
   onUseLocation: (lat: number, lon: number) => void;
   onLocationError: (errorCode: VetSearchErrorCode) => void;
+  initialQuery?: string;
+  autoLocate?: boolean;
 };
 
 export function SearchBar({
@@ -20,8 +22,11 @@ export function SearchBar({
   onSearch,
   onUseLocation,
   onLocationError,
+  initialQuery = "",
+  autoLocate = false,
 }: SearchBarProps) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
+  const didAutoStart = useRef(false);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -54,6 +59,19 @@ export function SearchBar({
     );
   }
 
+  useEffect(() => {
+    if (didAutoStart.current) return;
+    didAutoStart.current = true;
+
+    if (autoLocate) {
+      handleUseLocation();
+    } else if (initialQuery.trim()) {
+      onSearch(initialQuery);
+    }
+    // Runs once on arrival from a shared link or the landing page.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const locationMessage =
     locationError === "LOCATION_PERMISSION_DENIED"
       ? "Location access denied. Try searching by address instead."
@@ -64,7 +82,7 @@ export function SearchBar({
   return (
     <div className="space-y-2">
       <form
-        className="flex flex-col gap-2 rounded-xl border border-border/80 bg-card/95 p-2 shadow-lg backdrop-blur sm:flex-row sm:items-end"
+        className="flex flex-col gap-2 rounded-2xl border border-border/80 bg-card/95 p-3 shadow-(--shadow-lift) backdrop-blur sm:flex-row sm:items-end"
         onSubmit={handleSubmit}
       >
         <div className="min-w-0 flex-1">
