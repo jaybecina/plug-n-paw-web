@@ -43,7 +43,7 @@ CI (`.github/workflows/ci.yml`) runs lint, typecheck, test and build on every pu
 
 ## Setup
 
-1. Node 20+ and yarn.
+1. Node 22.12+ and yarn.
 2. `yarn install`
 3. Copy `.env.example` to `.env.local` and set:
    - `GEOAPIFY_API_KEY`: free key from [geoapify.com](https://www.geoapify.com/)
