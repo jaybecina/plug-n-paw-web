@@ -35,7 +35,7 @@ export function HeroSearch({ id = "hero-search" }: { id?: string }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           maxLength={100}
-          placeholder="City, address or clinic name"
+          placeholder="City or clinic name"
           className="min-w-0 flex-1 bg-transparent py-2.5 text-base outline-none placeholder:text-muted-foreground"
           autoComplete="off"
         />
