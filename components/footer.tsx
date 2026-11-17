@@ -53,17 +53,12 @@ export function Footer() {
                   {siteConfig.email}
                 </a>
               </li>
-              {siteConfig.hotlines.map((h) => (
-                <li key={h.tel} className="flex items-center gap-2">
-                  <Phone className="size-4 shrink-0" aria-hidden="true" />
-                  <a
-                    href={h.tel}
-                    className="hover:text-secondary-foreground"
-                  >
-                    {h.name}: {h.phone}
-                  </a>
-                </li>
-              ))}
+              <li className="flex items-center gap-2">
+                <Phone className="size-4 shrink-0" aria-hidden="true" />
+                <Link href="/emergency" className="hover:text-secondary-foreground">
+                  Poison hotlines for your country
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -90,8 +85,8 @@ export function Footer() {
 
         <p className="mt-10 max-w-3xl border-t border-secondary-foreground/15 pt-6 text-xs leading-5 text-secondary-foreground/65">
           {siteConfig.disclaimer} If your pet is in danger, call your nearest
-          emergency vet now. Poison hotlines are US services and may charge a
-          fee.
+          emergency vet now. Poison hotline numbers depend on your country and
+          may charge a fee.
         </p>
 
         <div className="mt-6 flex flex-col-reverse items-center gap-4 sm:flex-row sm:justify-between">

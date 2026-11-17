@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { Phone, Siren } from "lucide-react";
+import { Siren } from "lucide-react";
 import { SeverityBadge } from "@/components/severity-badge";
 import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site";
+import { HotlineList } from "@/components/emergency/hotline-list";
 import type { TriageResult } from "@/lib/triage/types";
 import { cn } from "@/lib/utils";
 
@@ -57,17 +57,9 @@ export function ResultCard({ result }: { result: TriageResult }) {
       </div>
 
       {emergency && (
-        <ul className="mt-6 space-y-2 border-t border-sev-emergency-fg/30 pt-5 text-sm">
-          {siteConfig.hotlines.map((h) => (
-            <li key={h.tel}>
-              <a href={h.tel} className="inline-flex items-center gap-2 rounded-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sev-emergency-fg">
-                <Phone className="size-4" aria-hidden="true" />
-                {h.name}: {h.phone}
-              </a>
-            </li>
-          ))}
-          <li className="opacity-90">Poison hotlines are US services and may charge a fee.</li>
-        </ul>
+        <div className="mt-6 border-t border-sev-emergency-fg/30 pt-5">
+          <HotlineList variant="inline" />
+        </div>
       )}
 
       <p className={cn("mt-6 text-xs leading-5", emergency ? "opacity-90" : "text-muted-foreground")}>
