@@ -10,7 +10,7 @@ export const siteConfig = {
   tagline: "Care for your pet, the moment you need it.",
   description:
     "Free pet-health tools: find a vet near you, check how urgent a symptom is, see which foods are safe for dogs and cats, and read plain-language care guides.",
-  email: "hello@plugnpaw.com",
+  email: "plugnpaw@gmail.com",
   kofiUrl: "https://ko-fi.com/jaybecina",
   disclaimer:
     "General information only — not a substitute for advice from a veterinarian.",
