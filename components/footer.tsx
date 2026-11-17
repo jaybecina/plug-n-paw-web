@@ -1,74 +1,108 @@
 import Link from "next/link";
-import { Mail, MapPin } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { SiteLogo } from "@/components/site-logo";
+import { siteConfig } from "@/lib/site";
 
-const siteLinks = [
-  { href: "/", label: "Home" },
-  { href: "/find-vet", label: "Find a vet" },
+const columns = [
+  {
+    title: "Tools",
+    links: [
+      { href: "/find-vet", label: "Find a vet" },
+      { href: "/symptom-checker", label: "Symptom checker" },
+      { href: "/food-safety", label: "Food safety" },
+      { href: "/emergency", label: "Emergency help" },
+    ],
+  },
+  {
+    title: "Learn",
+    links: [
+      { href: "/guides", label: "Care guides" },
+      { href: "/guides/when-to-see-a-vet", label: "When to see a vet" },
+      { href: "/guides/pet-first-aid-kit", label: "Pet first-aid kit" },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      { href: "/about", label: "About" },
+      { href: "/plus", label: "Plug N Paw Plus" },
+    ],
+  },
 ];
-
-const KOFI_URL = "https://ko-fi.com/jaybecina";
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-secondary text-secondary-foreground">
-      <div className="mx-auto max-w-6xl px-6 py-12 sm:px-10 lg:px-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr]">
+    <footer className="grain bg-secondary text-secondary-foreground">
+      <div className="container-page py-14">
+        <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="max-w-sm">
             <SiteLogo />
-            <p className="mt-4 text-sm leading-6 text-secondary-foreground/70">
-              A faster way to find veterinary care near you — search by
-              address, city, or clinic name and see what&apos;s closest.
+            <p className="mt-4 text-sm leading-6 text-secondary-foreground/75">
+              Free tools for worried pet owners: find a vet, check how urgent
+              a symptom is, and look up what&apos;s safe to feed.
             </p>
-          </div>
-
-          <div>
-            <h2 className="font-heading text-sm font-semibold">Site</h2>
-            <ul className="mt-4 space-y-3">
-              {siteLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-secondary-foreground/70 transition-colors hover:text-secondary-foreground"
+            <ul className="mt-5 space-y-2 text-sm text-secondary-foreground/75">
+              <li className="flex items-center gap-2">
+                <Mail className="size-4 shrink-0" aria-hidden="true" />
+                <a
+                  href={`mailto:${siteConfig.email}`}
+                  className="hover:text-secondary-foreground"
+                >
+                  {siteConfig.email}
+                </a>
+              </li>
+              {siteConfig.hotlines.map((h) => (
+                <li key={h.tel} className="flex items-center gap-2">
+                  <Phone className="size-4 shrink-0" aria-hidden="true" />
+                  <a
+                    href={h.tel}
+                    className="hover:text-secondary-foreground"
                   >
-                    {link.label}
-                  </Link>
+                    {h.name}: {h.phone}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h2 className="font-heading text-sm font-semibold">Get in touch</h2>
-            <ul className="mt-4 space-y-3 text-sm text-secondary-foreground/70">
-              <li className="flex items-start gap-2">
-                <Mail className="mt-0.5 size-4 shrink-0" />
-                <a
-                  href="mailto:hello@plugnpaw.com"
-                  className="transition-colors hover:text-secondary-foreground"
-                >
-                  hello@plugnpaw.com
-                </a>
-              </li>
-              <li className="flex items-start gap-2">
-                <MapPin className="mt-0.5 size-4 shrink-0" />
-                <span>Serving clinics near you</span>
-              </li>
-            </ul>
-          </div>
+          {columns.map((col) => (
+            <nav key={col.title} aria-label={col.title}>
+              <h2 className="font-heading text-sm font-semibold">
+                {col.title}
+              </h2>
+              <ul className="mt-4 space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-secondary-foreground/75 transition-colors hover:text-secondary-foreground"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
         </div>
 
-        <div className="mt-10 flex flex-col-reverse items-center gap-4 border-t border-secondary-foreground/15 pt-6 sm:flex-row sm:justify-between">
+        <p className="mt-10 max-w-3xl border-t border-secondary-foreground/15 pt-6 text-xs leading-5 text-secondary-foreground/65">
+          {siteConfig.disclaimer} If your pet is in danger, call your nearest
+          emergency vet now. Poison hotlines are US services and may charge a
+          fee.
+        </p>
+
+        <div className="mt-6 flex flex-col-reverse items-center gap-4 sm:flex-row sm:justify-between">
           <p className="text-xs text-secondary-foreground/60">
             &copy; {year} Plug N Paw. All rights reserved.
           </p>
           <a
-            href={KOFI_URL}
+            href={siteConfig.kofiUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1.5 rounded-sm text-xs text-secondary-foreground/70 transition-colors hover:text-secondary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground"
+            className="group inline-flex items-center gap-1.5 rounded-sm text-xs text-secondary-foreground/75 transition-colors hover:text-secondary-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground"
           >
             Help me buy a coffee
             <span
