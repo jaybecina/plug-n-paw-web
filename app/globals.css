@@ -1,17 +1,29 @@
-@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
-@import "leaflet/dist/leaflet.css";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-app-sans);
+  --font-sans: var(--font-app-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-app-heading);
+  --font-heading: var(--font-app-heading), ui-rounded, system-ui, sans-serif;
+  --color-tint-teal: var(--tint-teal);
+  --color-tint-clay: var(--tint-clay);
+  --color-tint-sage: var(--tint-sage);
+  --color-tint-butter: var(--tint-butter);
+  --color-sev-routine: var(--sev-routine);
+  --color-sev-routine-fg: var(--sev-routine-fg);
+  --color-sev-soon: var(--sev-soon);
+  --color-sev-soon-fg: var(--sev-soon-fg);
+  --color-sev-urgent: var(--sev-urgent);
+  --color-sev-urgent-fg: var(--sev-urgent-fg);
+  --color-sev-emergency: var(--sev-emergency);
+  --color-sev-emergency-fg: var(--sev-emergency-fg);
+  --shadow-soft: 0 1px 2px oklch(0.3 0.03 50 / 6%), 0 8px 24px oklch(0.3 0.03 50 / 8%);
+  --shadow-lift: 0 2px 4px oklch(0.3 0.03 50 / 8%), 0 18px 40px oklch(0.3 0.03 50 / 16%);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -51,10 +63,6 @@
 }
 
 :root {
-  --font-app-sans: Inter, ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-app-heading: Fredoka, ui-rounded, "SF Pro Rounded", Inter,
-    sans-serif;
   --font-geist-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   /* Paper: warm, quiet neutral — not the F4F1EA "AI cream" default. */
   --background: oklch(0.981 0.008 72);
@@ -83,6 +91,18 @@
   --chart-4: oklch(0.7 0.13 78);
   --chart-5: oklch(0.55 0.12 285);
   --radius: 0.625rem;
+  --tint-teal: oklch(0.94 0.03 195);
+  --tint-clay: oklch(0.95 0.035 45);
+  --tint-sage: oklch(0.94 0.04 145);
+  --tint-butter: oklch(0.96 0.06 90);
+  --sev-routine: oklch(0.93 0.05 150);
+  --sev-routine-fg: oklch(0.35 0.08 150);
+  --sev-soon: oklch(0.95 0.08 95);
+  --sev-soon-fg: oklch(0.4 0.08 75);
+  --sev-urgent: oklch(0.92 0.07 55);
+  --sev-urgent-fg: oklch(0.42 0.14 45);
+  --sev-emergency: oklch(0.55 0.22 27);
+  --sev-emergency-fg: oklch(0.99 0.01 27);
   --sidebar: oklch(0.97 0.012 72);
   --sidebar-foreground: oklch(0.22 0.022 48);
   --sidebar-primary: oklch(0.58 0.19 32);
@@ -94,6 +114,10 @@
 }
 
 .dark {
+  --tint-teal: oklch(0.28 0.03 195);
+  --tint-clay: oklch(0.29 0.04 45);
+  --tint-sage: oklch(0.28 0.04 145);
+  --tint-butter: oklch(0.3 0.05 90);
   --background: oklch(0.17 0.02 50);
   --foreground: oklch(0.95 0.012 72);
   --card: oklch(0.225 0.022 55);
@@ -209,4 +233,46 @@
 .vet-marker-selected span {
   font-size: 0.8rem;
   color: var(--primary-foreground);
+}
+
+/* Layout + motion utilities */
+.container-page {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 76rem;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .container-page { padding-inline: 1.5rem; }
+}
+@media (min-width: 1024px) {
+  .container-page { padding-inline: 2rem; }
+}
+
+.grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .07 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal[data-visible="true"] {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.float-slow { animation: float-y 6s ease-in-out infinite; }
+.float-slower { animation: float-y 7.5s ease-in-out -2s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .float-slow, .float-slower { animation: none; }
+  html { scroll-behavior: auto; }
 }
