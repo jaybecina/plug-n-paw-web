@@ -13,7 +13,7 @@ Built as a portfolio project to show product thinking and production-minded fron
 | `/symptom-checker` | Guided check: pet, symptom, warning signs, duration → routine / soon / urgent / emergency |
 | `/food-safety`, `/food-safety/[slug]` | 20 foods with verdicts for dogs and cats |
 | `/guides`, `/guides/[slug]` | 8 care guides with table of contents and Article structured data |
-| `/emergency` | Warning signs, first steps, US poison hotlines |
+| `/emergency` | Warning signs, first steps, poison hotlines for the visitor's country (geo header, manual override) |
 | `/plus` | Honest "coming soon" membership teaser (no data collected) |
 | `/about` | Mission, data sources, stack, credits, disclaimer |
 

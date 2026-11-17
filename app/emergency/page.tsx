@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Ban, Car, Phone, Siren } from "lucide-react";
+import { Ban, Car, Siren } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { buttonVariants } from "@/components/ui/button";
+import { HotlineList } from "@/components/emergency/hotline-list";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Pet emergency: signs, first steps and hotlines",
   description:
-    "Warning signs that mean go to an emergency vet now, what to do on the way, and US poison hotlines.",
+    "Warning signs that mean go to an emergency vet now, what to do on the way, and poison hotline numbers for your country.",
   alternates: { canonical: "/emergency" },
 };
 
@@ -118,28 +119,9 @@ export default function EmergencyPage() {
         <div className="container-page">
           <SectionHeading
             title="Poison hotlines"
-            description="US services. Fees may apply. Outside the US, call your local vet or emergency clinic."
+            description="We try to detect your country from your connection. If it is wrong or missing, pick yours below."
           />
-          <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-            {siteConfig.hotlines.map((h) => (
-              <li key={h.tel}>
-                <a
-                  href={h.tel}
-                  className="flex items-center gap-4 rounded-3xl bg-card p-5 shadow-(--shadow-soft) transition-shadow hover:shadow-(--shadow-lift) focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
-                >
-                  <span className="flex size-12 items-center justify-center rounded-2xl bg-secondary text-secondary-foreground">
-                    <Phone className="size-5" aria-hidden="true" />
-                  </span>
-                  <span>
-                    <span className="block text-sm text-muted-foreground">{h.name}</span>
-                    <span className="block font-heading text-xl font-semibold text-secondary">
-                      {h.phone}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <HotlineList variant="card" className="mt-6" />
           <p className="mt-8 max-w-2xl text-sm text-muted-foreground">
             {siteConfig.disclaimer}
           </p>

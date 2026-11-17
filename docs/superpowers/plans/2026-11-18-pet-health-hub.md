@@ -13,7 +13,7 @@
 ## Global Constraints
 
 - No fabricated social proof: no testimonials, star ratings, user counts, press logos, vet names. Numbers shown must be true product facts.
-- No form that collects data and discards it. Plus "Notify me" = `mailto:hello@plugnpaw.com?subject=Plug%20N%20Paw%20Plus%20waitlist`.
+- No form that collects data and discards it. Plus "Notify me" = `mailto:plugnpaw@gmail.com?subject=Plug%20N%20Paw%20Plus%20waitlist`.
 - Every health page (symptom checker, food pages, guides, emergency) shows the disclaimer: "General information only — not a substitute for advice from a veterinarian."
 - Symptom checker page also states its rules are "not reviewed by a veterinarian".
 - US English spelling ("diarrhea", "behavior"); US hotlines with "US only, fees may apply"; ASPCA Animal Poison Control `(888) 426-4435`, Pet Poison Helpline `(855) 764-7661`.

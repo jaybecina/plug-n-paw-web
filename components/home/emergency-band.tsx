@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { Phone, Siren } from "lucide-react";
+import { Siren } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { siteConfig } from "@/lib/site";
+import { HotlineList } from "@/components/emergency/hotline-list";
 
 const signs = [
   "Trouble breathing, or gums that are pale, blue or grey",
@@ -56,28 +56,7 @@ export function EmergencyBand() {
           <h3 className="font-heading text-xl font-semibold">
             Think your pet ate poison?
           </h3>
-          <p className="mt-2 text-sm text-secondary-foreground/80">
-            US poison hotlines. Fees may apply. Outside the US, call your
-            local vet.
-          </p>
-          <ul className="mt-5 space-y-4">
-            {siteConfig.hotlines.map((h) => (
-              <li key={h.tel}>
-                <a
-                  href={h.tel}
-                  className="flex items-center gap-3 rounded-2xl bg-secondary-foreground px-4 py-3 text-secondary transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-foreground"
-                >
-                  <Phone className="size-5 shrink-0" aria-hidden="true" />
-                  <span>
-                    <span className="block text-sm font-medium">{h.name}</span>
-                    <span className="block font-heading text-lg font-semibold">
-                      {h.phone}
-                    </span>
-                  </span>
-                </a>
-              </li>
-            ))}
-          </ul>
+          <HotlineList variant="band" className="mt-4" />
         </div>
       </div>
     </section>
